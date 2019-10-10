@@ -266,3 +266,107 @@ SELECT COUNT(id), country_of_birth FROM person GROUP BY country_of_birth HAVING 
 ### AGGREGATE FUNCTIONS
 
 [Docs](https://www.postgresql.org/docs/12/functions-aggregate.html)
+
+
+### MAXIMUM
+
+```sql
+SELECT MAX(price) FROM car;
+```
+
+
+### MINIMUM
+
+```sql
+SELECT MIN(price) FROM car;
+```
+
+Get lowest price for all make and models.
+```sql
+SELECT make, model, MIN(price) FROM car GROUP BY make, model;
+```
+
+### AVERAGE
+
+```sql
+SELECT AVG(price) FROM car;
+```
+
+
+### ROUND
+
+```sql
+SELECT ROUND(AVG(price)) FROM car;
+```
+
+
+### SUM
+
+```sql
+SELECT SUM(price) FROM car;
+```
+
+
+### ARITHMETIC OPERATORS
+
+| Symbol | Description    |
+| ------ | -------------- |
+| +      | Addition       |
+| -      | Subtraction    |
+| *      | Multiplication |
+| /      | Division       |
+| ^      | Exponentiation |
+| !      | Factorial      |
+| %      | Modulo         |
+
+
+```sql
+SELECT 1 + 1;       # 1
+SELECT 4 - 2;       # 2
+SELECT 7 * 7;       # 49
+SELECT 100 / 10;    # 10
+SELECT 3 ^ 3;       # 27
+SELECT 5!;          # 5 * 4 * 3 * 2 * 1 = 120
+SELECT 10 % 3;      # 1
+```
+
+Get the value of an item with a discount.
+```sql
+SELECT id, make, model, price, price * .90 FROM car LIMIT 10;
+```
+
+
+### ALIAS KEYWORD
+
+```sql
+SELECT id, make, model, price, price * .90 AS discounted_price FROM car LIMIT 10;
+```
+
+
+### COALESCE KEYWORD
+
+If value not present, attempt to use the next value in the array.
+```sql
+SELECT COALESCE(null, 1);  # 1
+SELECT COALESCE(email, 'EMAIL-NOT-PROVIDED') FROM person;
+```
+
+
+### NULLIF KEYWORD
+
+Returns the first argument if the second argument is not equal to the first.
+```sql
+SELECT NULLIF(10, 1);    # 10
+SELECT NULLIF(10, 10);   # NULL
+```
+
+Useful for preventing division by zero.
+
+```sql
+SELECT 10 / 0;                         # ERROR:  division by zero
+SELECT 10 / NULL;                      # NULL
+SELECT COALESCE(10 / NULLIF(0, 0), 0); # 0
+```
+
+
+### TIMESTAMPS AND DATES
