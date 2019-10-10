@@ -370,3 +370,76 @@ SELECT COALESCE(10 / NULLIF(0, 0), 0); # 0
 
 
 ### TIMESTAMPS AND DATES
+
+[Docs](https://www.postgresql.org/docs/12/datatype-datetime.html)
+
+```sql
+SELECT NOW();        # TIMESTAMP
+SELECT NOW()::DATE;  # CAST TO DATE
+SELECT NOW()::TIME;  # CAST TO TIME
+```
+
+Date subtraction.
+```sql
+SELECT NOW() - INTERVAL '10 YEAR';    # CAN ALSO USE YEARS
+SELECT NOW() - INTERVAL '10 MONTH';   # CAN ALSO USE MONTHS
+SELECT NOW() - INTERVAL '10 DAY';     # CAN ALSO USE DAYS
+```
+
+Date addition.
+```sql
+SELECT NOW() + INTERVAL '10 YEAR';    # CAN ALSO USE YEARS
+SELECT NOW() + INTERVAL '10 MONTH';   # CAN ALSO USE MONTHS
+SELECT NOW() + INTERVAL '10 DAY';     # CAN ALSO USE DAYS
+```
+
+Casting entire statement.
+```sql
+SELECT DATE(NOW() + INTERVAL '10 MONTHS');
+```
+
+
+### EXTRACT
+
+Extract values from a given TIMESTAMP.
+```sql
+SELECT EXTRACT(YEAR FROM NOW());    # YEAR          2019
+SELECT EXTRACT(MONTH FROM NOW());   # MONTH         10
+SELECT EXTRACT(DAY FROM NOW());     # DAY           10
+SELECT EXTRACT(DOW FROM NOW());     # DAY OF WEEK   4 (THURSDAY)
+SELECT EXTRACT(CENTURY FROM NOW()); # CENTURY       21
+```
+
+### AGE
+
+```sql
+SELECT first_name, last_name, gender, country_of_birth, date_of_birth, AGE(NOW(), date_of_birth) AS age FROM person;
+```
+
+
+### PRIMARY KEYS
+
+Uniquely identifies a record in a table.
+
+### CONSTRAINTS
+
+The person table has a constraint associated with it to prevent duplicate ids. If an INSERT statement attempts to add a user with the same ID on this table, the following error will be issued:
+```none
+ERROR:  duplicate key value violates unique constraint "person_pkey"
+```
+
+Dropping a constraint.
+```sql
+ALTER TABLE person DROP CONSTRAINT person_pkey;
+```
+
+Adding PRIMARY KEY
+```sql
+ALTER TABLE person ADD PRIMARY KEY (id);
+```
+
+### DELETE AN ENTRY
+
+```sql
+DELETE FROM person WHERE id = 1;
+```
