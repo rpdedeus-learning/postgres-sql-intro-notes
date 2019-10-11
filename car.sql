@@ -1,5 +1,5 @@
 create table car (
-	id INT,
+	id BIGSERIAL NOT NULL PRIMARY KEY,
 	make VARCHAR(50),
 	model VARCHAR(50),
 	price NUMERIC (19, 2)

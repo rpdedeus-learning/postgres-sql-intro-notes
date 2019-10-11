@@ -518,7 +518,7 @@ car_id BIGINT REFERENCES car(id)
 An inner join returns the items that are common in both tables.
 
 ```sql
-SELECT * FROM person JOIN car_vins ON car.id = car_vins.id;
+SELECT * FROM car JOIN vin_number ON car.vin_id = vin_number.id;
 ```
 
 
@@ -527,7 +527,7 @@ SELECT * FROM person JOIN car_vins ON car.id = car_vins.id;
 A left join includes all of the rows from the left table with the corresponding rows on the right table.
 
 ```sql
-SELECT * FROM person LEFT JOIN car_vins ON car.id = car_vins.id;
+cars=# SELECT * FROM car LEFT JOIN vin_number ON car.vin_id = vin_number.id WHERE car.id < 5;
 ```
 
 
@@ -543,4 +543,4 @@ A person can own many vehicles.
 A car can have multiple owners.
 
 
-#### 
+####
