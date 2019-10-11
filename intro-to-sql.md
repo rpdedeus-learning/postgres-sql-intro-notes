@@ -57,12 +57,13 @@ DROP TABLE person;
 
 ```sql
 CREATE TABLE person (
-id BIGSERIAL NOT NULL PRIMARY KEY,
-first_name VARCHAR(50) NOT NULL,
-last_name VARCHAR(50) NOT NULL,
-gender VARCHAR(7) NOT NULL,
-date_of_birth DATE NOT NULL,
-email VARCHAR(150) );
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  gender VARCHAR(7) NOT NULL,
+  date_of_birth DATE NOT NULL,
+  email VARCHAR(150)
+);
 ```
 
 
@@ -118,7 +119,7 @@ SELECT first_name, last_name FROM person;
 
 * ORDER BY defaults to ASC order if no other value is specified.
 
-Order By single column
+ORDER BY single column
 ```sql
 SELECT * FROM person ORDER BY id DESC;
 ```
@@ -137,6 +138,7 @@ SELECT DISTINCT country_of_birth FROM person ORDER BY country_of_birth;
 
 
 ### WHERE CLAUSE
+
 Filter data based on conditions
 
 ```sql
@@ -145,6 +147,7 @@ SELECT * FROM person WHERE gender = 'Male';
 
 
 ### AND KEYWORD
+
 ```sql
 SELECT * FROM person WHERE gender='Female' AND country_of_birth = 'Brazil';
 ```
@@ -286,6 +289,7 @@ Get lowest price for all make and models.
 SELECT make, model, MIN(price) FROM car GROUP BY make, model;
 ```
 
+
 ### AVERAGE
 
 ```sql
@@ -410,6 +414,7 @@ SELECT EXTRACT(DOW FROM NOW());     # DAY OF WEEK   4 (THURSDAY)
 SELECT EXTRACT(CENTURY FROM NOW()); # CENTURY       21
 ```
 
+
 ### AGE
 
 ```sql
@@ -420,6 +425,7 @@ SELECT first_name, last_name, gender, country_of_birth, date_of_birth, AGE(NOW()
 ### PRIMARY KEYS
 
 Uniquely identifies a record in a table.
+
 
 ### CONSTRAINTS
 
@@ -433,13 +439,62 @@ Dropping a constraint.
 ALTER TABLE person DROP CONSTRAINT person_pkey;
 ```
 
-Adding PRIMARY KEY
+Adding PRIMARY KEY constraint
 ```sql
 ALTER TABLE person ADD PRIMARY KEY (id);
 ```
 
-### DELETE AN ENTRY
+
+### DELETE RECORDS
 
 ```sql
 DELETE FROM person WHERE id = 1;
 ```
+
+
+### CREATING UNIQUE CONSTRAINTS
+
+Create a unique constraint allowing Postgres to name it.
+```sql
+ALTER TABLE person ADD UNIQUE(email);
+```
+
+Create a unique constraint providing Postgres with a custom name for the same.
+```sql
+ALTER TABLE person ADD CONSTRAINT unique_email_address UNIQUE(email);
+```
+
+
+### CHECK CONSTRAINTS
+
+```sql
+ALTER TABLE PERSON ADD CONSTRAINT gender_constraint CHECK (gender = 'Female' OR gender = 'Male');
+```
+
+
+### ALTER RECORDS
+
+```sql
+UPDATE person SET first_name = 'Marg', mail = 'marg@columbia.edu' WHERE id = 1;
+```
+
+
+### ON CONFLICT, DO NOTHING
+
+```sql
+INSERT INTO person (id, first_name, last_name, gender, date_of_birth, email, country_of_birth)
+VALUES (1, 'Martguerita', 'Riddoch', 'Female', '2019-09-05', 'mriddoch0@columbia.edu', 'Sweden')
+ON CONFLICT (id) DO NOTHING;
+```
+
+
+### DO UPDATE
+
+```sql
+INSERT INTO person (id, first_name, last_name, gender, date_of_birth, email, country_of_birth)
+VALUES (1, 'Martguerita', 'Riddoch', 'Female', '2019-09-05', 'mriddoch0@dc.gov', 'Sweden')
+ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
+```
+
+
+### RELATIONSHIP
