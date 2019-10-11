@@ -508,8 +508,9 @@ A foreign key is a column that references a primary key in another table.
 A car has a vin number.
 A vin number can only be associated with one car.
 
-```sql
-car_id BIGINT REFERENCES car(id)
+Before proceeding, inspect and run the vin_number.sql script.
+```
+\i vin_number.sql
 ```
 
 
@@ -527,7 +528,7 @@ SELECT * FROM car JOIN vin_number ON car.vin_id = vin_number.id;
 A left join includes all of the rows from the left table with the corresponding rows on the right table.
 
 ```sql
-cars=# SELECT * FROM car LEFT JOIN vin_number ON car.vin_id = vin_number.id WHERE car.id < 5;
+SELECT * FROM car LEFT JOIN vin_number ON car.vin_id = vin_number.id WHERE car.id < 5;
 ```
 
 
