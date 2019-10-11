@@ -17,6 +17,7 @@
 | \d <table_name> | list table details         |
 | \i FILE         | execute commands from file |
 | \q              | quit                       |
+| \x              | toggle expanded display    |
 
 
 ### CREATING A DATABASE
@@ -497,4 +498,49 @@ ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
 ```
 
 
-### RELATIONSHIP
+### FOREIGN KEY
+
+A foreign key is a column that references a primary key in another table.
+
+
+#### ONE TO ONE RELATIONSHIP
+
+A car has a vin number.
+A vin number can only be associated with one car.
+
+```sql
+car_id BIGINT REFERENCES car(id)
+```
+
+
+#### INNER JOINS
+
+An inner join returns the items that are common in both tables.
+
+```sql
+SELECT * FROM person JOIN car_vins ON car.id = car_vins.id;
+```
+
+
+#### LEFT JOINS
+
+A left join includes all of the rows from the left table with the corresponding rows on the right table.
+
+```sql
+SELECT * FROM person LEFT JOIN car_vins ON car.id = car_vins.id;
+```
+
+
+#### ONE TO MANY
+
+A car can have multiple service records.
+A service record can only be associated with one car.
+
+
+#### MANY TO MANY
+
+A person can own many vehicles.
+A car can have multiple owners.
+
+
+#### 
