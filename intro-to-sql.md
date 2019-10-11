@@ -125,7 +125,7 @@ ORDER BY single column
 SELECT * FROM person ORDER BY id DESC;
 ```
 
-Order By multiple columns
+ORDER BY multiple columns
 ```sql
 SELECT * FROM person ORDER BY first_name, email DESC;
 ```
@@ -190,6 +190,7 @@ SELECT * FROM person LIMIT 10;
 
 
 ### FETCH KEYWORD
+
 Same as LIMIT but SQL standard.
 ```sql
 SELECT * FROM person FETCH FIRST 5 ROW ONLY;
@@ -503,7 +504,7 @@ ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
 A foreign key is a column that references a primary key in another table.
 
 
-#### ONE TO ONE RELATIONSHIP
+### ONE TO ONE RELATIONSHIPS
 
 A car has a vin number.
 A vin number can only be associated with one car.
@@ -514,7 +515,7 @@ Before proceeding, inspect and run the vin_number.sql script.
 ```
 
 
-#### INNER JOINS
+### INNER JOINS
 
 An inner join returns the items that are common in both tables.
 
@@ -523,7 +524,7 @@ SELECT * FROM car JOIN vin_number ON car.vin_id = vin_number.id;
 ```
 
 
-#### LEFT JOINS
+### LEFT JOINS
 
 A left join includes all of the rows from the left table with the corresponding rows on the right table.
 
@@ -532,13 +533,13 @@ SELECT * FROM car LEFT JOIN vin_number ON car.vin_id = vin_number.id WHERE car.i
 ```
 
 
-#### ONE TO MANY
+### ONE TO MANY RELATIONSHIPS
 
 A car can have multiple service records.
 A service record can only be associated with one car.
 
 
-#### MANY TO MANY
+### MANY TO MANY RELATIONSHIPS
 
 A person can own many vehicles.
 A car can have multiple owners.
