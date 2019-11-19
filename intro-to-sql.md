@@ -567,4 +567,13 @@ A person can own many vehicles.
 A car can have multiple owners.
 
 
+Before proceeding, inspect and run the person_car_mapping.sql script.
+```
+\i person_car_mapping.sql
+```
 
+```sql
+SELECT p.id AS PERSON_ID, p.first_name, p.last_name, c.id AS CAR_ID, c.make, c.model 
+FROM person AS p, car AS c, person_car_mapping as pc 
+WHERE pc.car_id = c.id AND pc.person_id = p.id; 
+```
