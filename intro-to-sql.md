@@ -99,6 +99,12 @@ VALUES (
 [Mockaroo](https://mockaroo.com/)
 
 
+Before proceeding, inspect and run the person.sql script.
+```
+\i person.sql
+```
+
+
 ### SELECT STATEMENT
 
 ```sql
@@ -271,6 +277,12 @@ SELECT COUNT(id), country_of_birth FROM person GROUP BY country_of_birth HAVING 
 ### AGGREGATE FUNCTIONS
 
 [Docs](https://www.postgresql.org/docs/12/functions-aggregate.html)
+
+
+Before proceeding, inspect and run the car.sql script.
+```
+\i car.sql
+```
 
 
 ### MAXIMUM
@@ -470,7 +482,7 @@ ALTER TABLE person ADD CONSTRAINT unique_email_address UNIQUE(email);
 ### CHECK CONSTRAINTS
 
 ```sql
-ALTER TABLE PERSON ADD CONSTRAINT gender_constraint CHECK (gender = 'Female' OR gender = 'Male');
+ALTER TABLE PERSON ADD CONSTRAINT gender_constraint CHECK (gender = 'Female' OR gender = 'Male' OR gender='Other');
 ```
 
 
@@ -539,10 +551,20 @@ A car can have multiple service records.
 A service record can only be associated with one car.
 
 
+Before proceeding, inspect and run the service_record.sql script.
+```
+\i service_record.sql
+```
+
+```sql
+SELECT * FROM car JOIN service_record ON car.id = service_record.id;
+```
+
+
 ### MANY TO MANY RELATIONSHIPS
 
 A person can own many vehicles.
 A car can have multiple owners.
 
 
-####
+
